@@ -10,4 +10,9 @@ The controller manages the SPI bus of the TLCs, the high speed frame data bus, a
 pulse generation. Moreover is a grayscale clock included that automatically switches up to eight displayed
 lines in multiplexed mode.
 
+It will load a new frame into the TLC5958 caches if the panel is selected via the frame data bus. Everything 
+else including setting up the configuration registers, Lod testing and emitting the VSYNC command to switch
+TLC caches has to be done manually by a management microprocessor to keep the VHDL design slim. The micro-
+processor is also responsible for enabling the receiving mode. 
+
 This project is part of a Matura thesis of the HTL Hollabrunn Austria. 
