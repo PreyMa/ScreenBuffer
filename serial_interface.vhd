@@ -21,6 +21,7 @@ entity serial_interface is
            Proc_wr_b : in  STD_LOGIC;
            sclk : in  STD_LOGIC;
            Proc_sclk : in  STD_LOGIC;
+			  panel_select : in std_logic;
            mosi_a : out  STD_LOGIC;
            sclk_a : out  STD_LOGIC;
            mosi_b : out  STD_LOGIC;
@@ -38,8 +39,8 @@ begin
 
 serial_clock 	<= sclk when proc_rcv_en = '1' else proc_sclk;
 serial_mosi		<= sdin when proc_rcv_en = '1' else proc_mosi;
-cache_a_en		<= even_odd 		  when proc_rcv_en = '1' else proc_wr_a;
-cache_b_en		<= ( not even_odd ) when proc_rcv_en = '1' else proc_wr_b;
+cache_a_en		<= ( panel_select and even_odd ) 	 when proc_rcv_en = '1' else proc_wr_a;
+cache_b_en		<= ( panel_select and not even_odd ) when proc_rcv_en = '1' else proc_wr_b;
 
 mosi_a <= serial_mosi  and cache_a_en;
 sclk_a <= serial_clock and cache_a_en;

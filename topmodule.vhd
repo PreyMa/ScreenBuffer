@@ -100,6 +100,7 @@ component serial_interface is
            Proc_wr_b : in  STD_LOGIC;
            sclk : in  STD_LOGIC;
            Proc_sclk : in  STD_LOGIC;
+			  panel_select : in std_logic;
            mosi_a : out  STD_LOGIC;
            sclk_a : out  STD_LOGIC;
            mosi_b : out  STD_LOGIC;
@@ -145,18 +146,19 @@ begin
 
 	serinf : serial_interface
 	port map(
-		proc_rcv_en => proc_rcv_en,
-		sdin			=> sdin,
-		proc_mosi	=> proc_mosi,
-		even_odd		=> even_odd,
-		proc_wr_a	=> proc_wr_a,
-		proc_wr_b	=> proc_wr_b,
-		sclk			=> sclk,
-		proc_sclk	=> proc_sclk,
-		mosi_a		=> mosi_a,
-		mosi_b		=> mosi_b,
-		sclk_a		=> tsclk_a,
-		sclk_b		=> tsclk_b
+		proc_rcv_en  => proc_rcv_en,
+		sdin			 => sdin,
+		proc_mosi	 => proc_mosi,
+		even_odd		 => even_odd,
+		proc_wr_a	 => proc_wr_a,
+		proc_wr_b	 => proc_wr_b,
+		sclk			 => sclk,
+		proc_sclk	 => proc_sclk,
+		panel_select => panel_select,
+		mosi_a		 => mosi_a,
+		mosi_b		 => mosi_b,
+		sclk_a		 => tsclk_a,
+		sclk_b		 => tsclk_b
 	);
 
 	res : reset_logic

@@ -33,7 +33,7 @@ begin
 							
 	mode_data <= serial_in( 6 downto 4 );
 	
-	sdprev_disable <= '1' when addr_sel = "0000" else '0';
+	sdprev_disable <= '1' when ( addr_sel = "0000" ) and ( byte_rcvd = '1' ) else '0';
 	
 	addr_valid <= '1' when ( byte_rcvd = '1' ) and ( addr_sel = serial_in( 3 downto 0 ) ) and ( input_parity = serial_in(7) ) else '0';
 
