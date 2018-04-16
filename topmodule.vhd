@@ -154,7 +154,7 @@ begin
 		proc_wr_b	 => proc_wr_b,
 		sclk			 => sclk,
 		proc_sclk	 => proc_sclk,
-		panel_select => panel_select,
+		panel_select => panel_sel,
 		mosi_a		 => mosi_a,
 		mosi_b		 => mosi_b,
 		sclk_a		 => tsclk_a,
