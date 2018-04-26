@@ -60,7 +60,7 @@ NET "addr_sel<2>" LOC = "P53";
 NET "addr_sel<3>" LOC = "P52";
 
 #-----------------------------------------
-# Arduino IOs									  |
+# Microprocessor IOs									  |
 #-----------------------------------------
 NET "done" LOC = "P96";
 NET "proc_mosi" LOC = "P90";
