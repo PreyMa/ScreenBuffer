@@ -1,0 +1,78 @@
+#--------------------------------------------------------
+#	2018 Jakob Mayer & Mathias Preymann // HTL Hollabrunn
+#
+#	Pinout for LED-Panel Logic Board
+#
+#	V1 
+#--------------------------------------------------------
+
+#-----------------------------------------
+#Clock constraints							  |
+#-----------------------------------------
+NET "gclk" TNM_NET = gclk;
+TIMESPEC TS_gclk = PERIOD "gclk" 10 ns HIGH 50%;
+NET "sclk" TNM_NET = sclk;
+TIMESPEC TS_sclk = PERIOD "sclk" 20 ns HIGH 50%;
+#-----------------------------------------
+
+#-----------------------------------------
+# Clock Nets									  |
+#-----------------------------------------
+NET "sclk" LOC = "P22";
+NET "gclk" LOC = "P23";
+
+#-----------------------------------------
+# HS In											  |
+#-----------------------------------------
+NET "sdin" LOC = "P12";
+NET "sdout" LOC = "P13";
+NET "sdprev" LOC = "P11";
+
+#-----------------------------------------
+# Line Select Outputs						  |
+#-----------------------------------------
+NET "line_select<0>"  LOC = "P74";
+NET "line_select<1>"  LOC = "P73";
+NET "line_select<2>"  LOC = "P72";
+NET "line_select<3>"  LOC = "P71";
+NET "line_select<4>"  LOC = "P70";
+NET "line_select<5>"  LOC = "P68";
+NET "line_select<6>"  LOC = "P67";
+NET "line_select<7>"  LOC = "P66";
+
+#-----------------------------------------
+# TLC Control Outputs						  |
+#-----------------------------------------
+NET "latch" LOC = "P63";
+NET "tsclk_a" LOC = "P65";
+NET "tsclk_b" LOC = "P61";
+NET "mosi_a" LOC = "P64";
+NET "mosi_b" LOC = "P60";
+NET "miso_a" LOC = "P59";
+NET "miso_b" LOC = "P58";
+NET "grayscale_clk" LOC = "P76";
+
+#-----------------------------------------
+# Adress Select								  |
+#-----------------------------------------
+NET "addr_sel<0>" LOC = "P55";
+NET "addr_sel<1>" LOC = "P54";
+NET "addr_sel<2>" LOC = "P53";
+NET "addr_sel<3>" LOC = "P52";
+
+#-----------------------------------------
+# Arduino IOs									  |
+#-----------------------------------------
+NET "done" LOC = "P96";
+NET "proc_mosi" LOC = "P90";
+NET "proc_sclk" LOC = "P91";
+NET "proc_rcv_en" LOC = "P94";
+NET "proc_wr_a" LOC = "P93";
+NET "proc_wr_b" LOC = "P92";
+NET "proc_latch" LOC = "P86";
+NET "proc_grclk_en" LOC = "P85";
+NET "mode_data<0>" LOC = "P81";
+NET "mode_data<1>" LOC = "P82";
+NET "mode_data<2>" LOC = "P80";
+NET "reset" LOC = "P97";
+NET "panel_select" LOC = "P95";
