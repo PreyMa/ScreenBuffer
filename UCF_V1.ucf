@@ -13,7 +13,6 @@ NET "gclk" TNM_NET = gclk;
 TIMESPEC TS_gclk = PERIOD "gclk" 10 ns HIGH 50%;
 NET "sclk" TNM_NET = sclk;
 TIMESPEC TS_sclk = PERIOD "sclk" 20 ns HIGH 50%;
-#-----------------------------------------
 
 #-----------------------------------------
 # Clock Nets									  |
