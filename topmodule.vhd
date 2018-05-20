@@ -18,6 +18,7 @@ entity topmodule is
            sdout : out  STD_LOGIC;
            sdprev : in  STD_LOGIC;
            sclk : in  STD_LOGIC;
+			  sdprev_en : out std_logic;
            proc_rcv_en : in  STD_LOGIC;
            proc_wr_a : in  STD_LOGIC;
            proc_wr_b : in  STD_LOGIC;
@@ -116,8 +117,9 @@ signal greset : std_logic;
 
 begin
 
-	panel_select <= panel_sel;
-	reset 		 <= greset;
+	panel_select <= 	  panel_sel;
+	reset 		 <= 	  greset;
+	sdprev_en	 <= not sdprev_ignore;
 
 	grclkgen : grayscale_logic
 	port map(
