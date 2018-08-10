@@ -24,8 +24,8 @@ NET "gclk" LOC = "P23";
 # HS In											  |
 #-----------------------------------------
 NET "sdin" LOC = "P12";
-NET "sdout" LOC = "P13";
-NET "sdprev" LOC = "P11";
+NET "sdout" LOC = "P11";
+NET "sdprev" LOC = "P13";
 
 #-----------------------------------------
 # Line Select Outputs						  |
@@ -49,7 +49,7 @@ NET "mosi_a" LOC = "P64";
 NET "mosi_b" LOC = "P60";
 NET "miso_a" LOC = "P59";
 NET "miso_b" LOC = "P58";
-NET "grayscale_clk" LOC = "P76";
+NET "grayscale_clk" LOC = "P56";
 
 #-----------------------------------------
 # Adress Select								  |
@@ -60,7 +60,7 @@ NET "addr_sel<2>" LOC = "P53";
 NET "addr_sel<3>" LOC = "P52";
 
 #-----------------------------------------
-# Microprocessor IOs									  |
+# Microprocessor IOs							  |
 #-----------------------------------------
 NET "done" LOC = "P96";
 NET "proc_mosi" LOC = "P90";
