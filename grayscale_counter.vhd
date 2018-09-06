@@ -53,8 +53,8 @@ if( reset = '1' ) then
 	
 elsif ( clk'event and clk = '1') then
 	-- if( tick = '1' and grayclk = '0' ) then   running in positive edge only mode
-	if( tick = '1' ) then 							-- running in double edge mode
-		if( cnt_gclk = 256 ) then					-- Cycle counter overflow
+	if( tick = '1' and grayclk = '0') then 							-- running in double edge mode
+		if( cnt_gclk = 128 ) then					-- Cycle counter overflow
 			cnt_gclk <= 0;
 			
 			if( cnt_lines = 7) then					-- Line counter overflow
