@@ -48,7 +48,7 @@ end process toggle;
 count: process(clk, reset) 
 begin
 if( reset = '1' ) then
-	cnt_gclk <= 256;									-- Reset cycle counter
+	cnt_gclk <= 128;									-- Reset cycle counter
 	cnt_lines <= 7;									-- Reset line counter
 	
 elsif ( clk'event and clk = '1') then
