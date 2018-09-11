@@ -20,6 +20,7 @@ entity serial_counter is
            ovf : out  STD_LOGIC;
            even_odd : out  STD_LOGIC;
            modu : out  STD_LOGIC;
+			  zero : out std_logic;
            sml_eight : out  STD_LOGIC);
 end serial_counter;
 
@@ -48,6 +49,7 @@ architecture Behavioral of serial_counter is
 	even_odd <= counter(0);
 	sml_eight <= '1' when counter < to_unsigned( 8, width ) else '0';
 	ovf <= '1' when counter = to_unsigned( 110592, width ) else '0';
+	zero <= '1' when counter = to_unsigned( 0, width ) else '0';
 
 	-- create tlc latch signal for every 9 pixels send to each path consisting of 48 bits
 	-- plus a single offset of 8 bits for the panel address byte

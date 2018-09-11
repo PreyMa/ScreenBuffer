@@ -25,6 +25,7 @@ entity serial_input is
 			  done : out std_logic;
            sdprev_ignore : out  STD_LOGIC;
            even_odd : out  STD_LOGIC;
+			  zero : out std_logic;
            proc_latch : in  STD_LOGIC);
 end serial_input;
 
@@ -36,6 +37,7 @@ component serial_counter is
            sclk : in  STD_LOGIC;
            ovf : out  STD_LOGIC;
            even_odd : out  STD_LOGIC;
+			  zero : out std_logic;
            modu : out  STD_LOGIC;
            sml_eight : out  STD_LOGIC);
 end component serial_counter;
@@ -63,6 +65,7 @@ signal ctr_sync_reset : std_logic;
 signal ctr_mod : std_logic;
 signal ctr_done : std_logic;
 signal ctr_sml_eight : std_logic;
+signal ctr_zero : std_logic;
 
 signal serial_dout : std_logic_vector( 7 downto 0 );
 signal serial_byte_rcvd : std_logic;
@@ -70,9 +73,10 @@ signal serial_byte_rcvd : std_logic;
 signal panel_select : std_logic;
 
 begin
-
+	
 	sel  <= panel_select;
 	done <= ctr_done;
+	zero <= ctr_zero;
 
 	ctr_sync_reset <= reset or ( clk and ctr_done and ( not proc_rcv_en ) );
 
@@ -83,6 +87,7 @@ begin
 		reset		 => ctr_sync_reset,
 		sclk		 => sclk,
 		ovf		 => ctr_done,
+		zero		 => ctr_zero,
 		even_odd	 => even_odd,
 		modu		 => ctr_mod,
 		sml_eight => ctr_sml_eight

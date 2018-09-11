@@ -89,6 +89,7 @@ component serial_input is
 			  done : out std_logic;
            sdprev_ignore : out  STD_LOGIC;
            even_odd : out  STD_LOGIC;
+			  zero : out std_logic;
            proc_latch : in  STD_LOGIC);
 end component serial_input;
 
@@ -97,11 +98,13 @@ component serial_interface is
            sdin : in  STD_LOGIC;
            Proc_mosi : in  STD_LOGIC;
            even_odd : in  STD_LOGIC;
+			  ctr_zero : in std_logic;
            Proc_wr_a : in  STD_LOGIC;
            Proc_wr_b : in  STD_LOGIC;
-           sclk : in  STD_LOGIC;
            Proc_sclk : in  STD_LOGIC;
 			  panel_select : in std_logic;
+			  sclk : in std_logic;
+			  reset : in std_logic;
            mosi_a : out  STD_LOGIC;
            sclk_a : out  STD_LOGIC;
            mosi_b : out  STD_LOGIC;
@@ -114,6 +117,7 @@ signal even_odd : std_logic;
 signal sdprev_ignore : std_logic;
 signal tick : std_logic;
 signal greset : std_logic;
+signal zero : std_logic;
 
 begin
 
@@ -152,11 +156,13 @@ begin
 		sdin			 => sdin,
 		proc_mosi	 => proc_mosi,
 		even_odd		 => even_odd,
+		ctr_zero		 => zero,
 		proc_wr_a	 => proc_wr_a,
 		proc_wr_b	 => proc_wr_b,
-		sclk			 => sclk,
 		proc_sclk	 => proc_sclk,
 		panel_select => panel_sel,
+		sclk			 => sclk,
+		reset			 => greset,
 		mosi_a		 => mosi_a,
 		mosi_b		 => mosi_b,
 		sclk_a		 => tsclk_a,
@@ -185,6 +191,7 @@ begin
 		done				=> done,
 		sdprev_ignore 	=> sdprev_ignore,
 		even_odd 		=> even_odd,
+		zero				=> zero,
 		proc_latch 		=> proc_latch
 	);
 
