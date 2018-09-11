@@ -22,7 +22,7 @@ end grayscale_counter;
 
 architecture Behavioral of grayscale_counter is
 
-signal cnt_gclk : integer range 0 to 256;
+signal cnt_gclk : integer range 0 to 128;
 signal cnt_lines : integer range 0 to 7;
 signal grayclk : std_logic;
 signal line_en : std_logic;
