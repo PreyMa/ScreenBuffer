@@ -27,37 +27,13 @@ type StateType is ( IDLE, TRIG, SLEEP );
 signal curState : StateType;
 signal nextState : StateType;
 
---signal prev : std_logic;
 signal q_sig : std_logic;
 signal hlf_sig : std_logic;
 
 begin
 
 q <= q_sig;
---q_sig <= insig and not prev;
 hlf <= hlf_sig;
---
---flipflop : process( clk, reset )
---begin
---
---	if( reset = '1' ) then
---		prev <= '0';
---		hlf_sig <= '0';
---		
---	elsif( clk' event and clk= '1' ) then
---		prev <= insig;
---		
---		if( q_sig = '1' and nen_ctr = '1' ) then
---			hlf_sig <= not hlf_sig;
---		end if;
---		
---		if( nen_ctr = '0' ) then -- set to low by default
---			hlf_sig <= '0';
---		end if;
---		
---	end if;
---
---end process flipflop;
 
  SYNC : process( clk, reset ) 
  begin
