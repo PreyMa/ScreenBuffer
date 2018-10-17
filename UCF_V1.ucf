@@ -75,3 +75,8 @@ NET "mode_data<1>" LOC = "P82";
 NET "mode_data<2>" LOC = "P80";
 NET "reset" LOC = "P97";
 NET "panel_select" LOC = "P95";
+
+#-----------------------------------------
+# Debug     									  |
+#-----------------------------------------
+#NET "warumned" LOC = "P76";

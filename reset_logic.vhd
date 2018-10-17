@@ -14,7 +14,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity reset_logic is
-	 generic( log_pulse_length : natural := 6 );
+	 generic( log_pulse_length : natural := 16 );
     Port ( sclk : in  STD_LOGIC;
            tick : in  STD_LOGIC;
            gclk : in  STD_LOGIC;

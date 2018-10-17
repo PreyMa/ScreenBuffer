@@ -46,6 +46,8 @@ component sync_pulser is
     Port ( clk : in  STD_LOGIC;
            insig : in  STD_LOGIC;
            reset : in  STD_LOGIC;
+			  nen_ctr : in std_logic;
+			  hlf   : out  std_logic;
            q : out  STD_LOGIC);
 end component sync_pulser;
 
@@ -56,16 +58,20 @@ signal tick_sel : std_logic;
 signal ctr_tick : std_logic;
 signal ctr_en : std_logic;
 signal ctr_reset : std_logic;
+signal grclk_ctr_sig : std_logic;
+signal proc_sclk_hlf : std_logic;
 
 begin
 
 	tick <= ticksig;
-
-	tick_sel <= proc_wr_a and proc_wr_b and proc_rcv_en;
-
-	ctr_reset 	<= reset or ( clk and ( not proc_grclk_en ) );
-	ctr_en		<= sync_proc_sclk when tick_sel = '1' else ticksig;
-	ctr_tick		<= proc_grclk_en and ctr_en;
+	
+	tick_sel <= proc_wr_a and proc_wr_b and proc_rcv_en;					-- check if proc emits grclks
+	
+	ctr_reset 	<= reset or ( clk and ( not proc_grclk_en ) );			-- reset the ctr
+	ctr_en		<= sync_proc_sclk when tick_sel = '1' else ticksig;	-- select ctr tick 
+	ctr_tick		<= proc_grclk_en and ctr_en;									-- enable the ctr via proc_grclk_en 
+	
+	grayscale_clock <= proc_sclk_hlf when tick_sel = '1' else grclk_ctr_sig;	-- select grayscale clock signal
 
 
 	pulser : sync_pulser
@@ -73,6 +79,8 @@ begin
 		clk 	=> clk,
 		insig => proc_sclk,
 		reset => reset,
+		nen_ctr => tick_sel,
+		hlf => proc_sclk_hlf,
 		q		=> sync_proc_sclk
 	);
 	
@@ -89,7 +97,7 @@ begin
 		tick	=> ctr_tick,
 		reset => ctr_reset,
 		line_select => line_sel,
-		grayscale_clk => grayscale_clock
+		grayscale_clk => grclk_ctr_sig
 	);
 
 end Behavioral;
