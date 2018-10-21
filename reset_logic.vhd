@@ -33,11 +33,13 @@ q    <= qsig;
 
 ctr: process( gclk, sclk )
 begin
-	if( sclk = '0' ) then
-		reg <= ( others => '0' );
-		
-	elsif( gclk'event and gclk= '1' ) then
-		if( tick= '1' ) then
+	
+	if( gclk'event and gclk= '1' ) then
+	
+		if( sclk = '0' ) then
+			reg <= ( others => '0' );
+			
+		elsif( tick= '1' ) then
 			if( qsig = '0' ) then
 				reg<= reg+1 ;
 			end if;

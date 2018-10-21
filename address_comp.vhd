@@ -26,7 +26,6 @@ architecture Behavioral of address_comp is
 signal input_parity : std_logic;
 
 begin
-
 	input_parity <= 	serial_in(6) xor serial_in(5) xor serial_in(4) xor 
 							serial_in(3) xor serial_in(2) xor serial_in(1) xor
 							serial_in(0);
