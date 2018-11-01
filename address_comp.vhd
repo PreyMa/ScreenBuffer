@@ -18,10 +18,13 @@ entity address_comp is
 			  mode_data : out  STD_LOGIC_VECTOR (2 downto 0);
            addr_valid : out  STD_LOGIC;
            sdprev_disable : out  STD_LOGIC;
+			  vsync_cmd : out std_logic;
 			  byte_rcvd : in std_logic);
 end address_comp;
 
 architecture Behavioral of address_comp is
+
+	signal addr_equal : std_logic;
 
 signal input_parity : std_logic;
 
@@ -33,8 +36,10 @@ begin
 	mode_data <= serial_in( 6 downto 4 );
 	
 	sdprev_disable <= '1' when ( addr_sel = "0000" ) else '0';
+	vsync_cmd <= '1' when ( serial_in( 6 downto 4 ) = "111" ) else '0';
 	
-	addr_valid <= '1' when ( byte_rcvd = '1' ) and ( addr_sel = serial_in( 3 downto 0 ) ) and ( input_parity = serial_in(7) ) else '0';
+	addr_equal <= '1' when ( addr_sel = serial_in( 3 downto 0 ) ) or ( serial_in(6 downto 4)	= "111" ) else '0';
+	addr_valid <= '1' when ( byte_rcvd = '1' ) and ( addr_equal = '1' ) and ( input_parity = serial_in(7) ) else '0';
 
 end Behavioral;
 

@@ -18,6 +18,7 @@ entity serial_shifter is
            dout : out  STD_LOGIC_VECTOR (7 downto 0);
            enable : in  STD_LOGIC;
            brecv : out  STD_LOGIC;
+			  mode_data_reset : in std_logic;
            reset : in  STD_LOGIC);
 end serial_shifter;
 
@@ -30,10 +31,10 @@ begin
 dout <= reg;
 brecv <= not enable;
 
-shift : process( reset, sclk ) 
+shift : process( reset, sclk, mode_data_reset) 
 begin
 	
-	if( reset = '1' ) then
+	if( (reset = '1') or (mode_data_reset = '1') ) then
 		reg <= ( others => '0' );
 	
 	elsif( sclk' event and sclk= '1' ) then

@@ -17,6 +17,7 @@ entity serial_counter is
 	 generic( width : natural := 17 );
     Port ( reset : in  STD_LOGIC;
            sclk : in  STD_LOGIC;
+			  mode_data_reset : in std_logic;
            ovf : out  STD_LOGIC;
            even_odd : out  STD_LOGIC;
            modu : out  STD_LOGIC;
@@ -27,33 +28,45 @@ end serial_counter;
 architecture Behavioral of serial_counter is
 
 	signal counter : unsigned( width downto 0 );
+	
+	signal modu_0 : std_logic;
+	signal modu_1 : std_logic;
+	signal modu_2 : std_logic;
 
 	begin
 
-	count_proc : process( reset, sclk ) 
+	count_proc : process( reset, sclk, mode_data_reset ) 
 		begin
 			
-		if( reset = '1' ) then
+		if( ( reset = '1' ) or ( mode_data_reset = '1' ) ) then
 			counter <= ( others => '0' );
+			modu_1 <= '0';
+			modu_2 <= '0';
 		
 		elsif( sclk' event and sclk = '1' ) then
 			counter <= counter +1;
 			
-			if( counter = to_unsigned( 110592, width ) ) then
+			modu_1 <= modu_0;
+			modu_2 <= modu_1;
+			
+			if( ( counter = to_unsigned( 110602, width ) )  ) then
 				counter <= (others => '0' );
+				modu_1 <= '0';
+				modu_2 <= '0';
 			end if;			
 		end if;
 			
 		end process count_proc;
-	
+		
+	modu <= modu_2;
 	even_odd <= counter(0);
 	sml_eight <= '1' when counter < to_unsigned( 8, width ) else '0';
-	ovf <= '1' when counter = to_unsigned( 110592, width ) else '0';
+	ovf <= '1' when counter = to_unsigned( 110602, width ) else '0';
 	zero <= '1' when counter = to_unsigned( 0, width ) else '0';
 
 	-- create tlc latch signal for every 9 pixels send to each path consisting of 48 bits
 	-- plus a single offset of 8 bits for the panel address byte
-	modu <=  '1' when ( counter = to_unsigned( 869, width ) ) else 
+	modu_0 <='1' when ( counter = to_unsigned( 869, width ) ) else 
 				'1' when ( counter = to_unsigned( 870, width ) ) else 
 				'1' when ( counter = to_unsigned( 1733, width ) ) else 
 				'1' when ( counter = to_unsigned( 1734, width ) ) else 

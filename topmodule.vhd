@@ -78,7 +78,6 @@ end component reset_logic;
 
 component serial_input is
     Port ( proc_rcv_en : in  STD_LOGIC;
-           clk : in  STD_LOGIC;
            reset : in  STD_LOGIC;
            sclk : in  STD_LOGIC;
            sdin : in  STD_LOGIC;
@@ -180,7 +179,6 @@ begin
 	ser_in : serial_input
 	port map(
 		proc_rcv_en 	=> proc_rcv_en,
-		clk 				=> gclk,
 		reset				=> greset,
 		sdin 				=> sdin,
 		sclk 				=> sclk,
