@@ -19,7 +19,8 @@ entity serial_input is
            sdin : in  STD_LOGIC;
            addr_sel : in  STD_LOGIC_VECTOR (3 downto 0);
            mode_data : out  STD_LOGIC_VECTOR (2 downto 0);
-           latch : out  STD_LOGIC;
+           latch_out1 : out  STD_LOGIC;
+			  latch_out2 : out  STD_LOGIC;
            sel : out  STD_LOGIC;
 			  done : out std_logic;
            sdprev_ignore : out  STD_LOGIC;
@@ -39,7 +40,8 @@ component serial_counter_new is
 			  mode_data_reset : in STD_LOGIC;
 			  panel_select : in std_logic;
 			  zero : out std_logic;
-           modu : out  STD_LOGIC;
+           latch1 : out  STD_LOGIC;
+			  latch2 : out  STD_LOGIC;
            sml_eight : out  STD_LOGIC);
 end component serial_counter_new;
 
@@ -65,7 +67,8 @@ end component address_comp;
 
 -- Local signal declarations
 signal ctr_sync_reset : std_logic;
-signal ctr_mod : std_logic;
+signal latch1 : std_logic;
+signal latch2 : std_logic;
 signal ctr_done : std_logic;
 signal ctr_sml_eight : std_logic;
 signal ctr_zero : std_logic;
@@ -85,7 +88,8 @@ begin
 
 	ctr_sync_reset <= reset; --or ( clk and ctr_done and ( not proc_rcv_en ) );
 
-	latch <= ( ctr_mod and panel_select ) when proc_rcv_en = '1' else proc_latch;
+	latch_out1 <= ( latch1 and panel_select ) when proc_rcv_en = '1' else proc_latch;
+	latch_out2 <= ( latch2 and panel_select ) when proc_rcv_en = '1' else proc_latch;
 	
 	mode_data_reset <= '1' when ( vsync_cmd = '1' and panel_select = '1' and proc_rcv_en = '0' ) else '0';
 	
@@ -96,7 +100,8 @@ begin
 		ovf		 => ctr_done,
 		zero		 => ctr_zero,
 		even_odd	 => even_odd,
-		modu		 => ctr_mod,
+		latch1	 => latch1,
+		latch2	 => latch2,
 		mode_data_reset => mode_data_reset,
 		panel_select => panel_select,
 		sml_eight => ctr_sml_eight

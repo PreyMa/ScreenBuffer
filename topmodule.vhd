@@ -33,7 +33,8 @@ entity topmodule is
            mosi_b : out  STD_LOGIC;
            tsclk_a : out  STD_LOGIC;
            tsclk_b : out  STD_LOGIC;
-           latch : out  STD_LOGIC;
+           latch_out1 : out  STD_LOGIC;
+			  latch_out2 : out  STD_LOGIC;
            grayscale_clk : out  STD_LOGIC;
            line_select : out  STD_LOGIC_VECTOR (7 downto 0);
            mode_data : out  STD_LOGIC_VECTOR (2 downto 0);
@@ -83,7 +84,8 @@ component serial_input is
            sdin : in  STD_LOGIC;
            addr_sel : in  STD_LOGIC_VECTOR (3 downto 0);
            mode_data : out  STD_LOGIC_VECTOR (2 downto 0);
-           latch : out  STD_LOGIC;
+           latch_out1 : out  STD_LOGIC;
+			  latch_out2 : out  STD_LOGIC;
            sel : out  STD_LOGIC;
 			  done : out std_logic;
            sdprev_ignore : out  STD_LOGIC;
@@ -184,7 +186,8 @@ begin
 		sclk 				=> sclk,
 		addr_sel 		=> addr_sel,
 		mode_data 		=> mode_data,
-		latch 			=> latch,
+		latch_out1 		=> latch_out1,
+		latch_out2 		=> latch_out2,
 		sel 				=> panel_sel,
 		done				=> done,
 		sdprev_ignore 	=> sdprev_ignore,

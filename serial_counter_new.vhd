@@ -29,7 +29,8 @@ entity serial_counter_new is
 			  panel_select : in std_logic;
            ovf : out  STD_LOGIC;
            even_odd : out  STD_LOGIC;
-           modu : out  STD_LOGIC;
+           latch1 : out  STD_LOGIC;
+			  latch2 : out	 STD_LOGIC;
 			  zero : out std_logic;
            sml_eight : out  STD_LOGIC);
 end serial_counter_new;
@@ -94,7 +95,8 @@ comb: process(STATE, latchcount, bitcount, panel_select )
 			inc_Bit <= '0';
 			res_Latch <= '0';
 			res_Bit <= '0';
-			modu <= '0';
+			latch1 <= '0';
+			latch2 <= '0';
 			zero <= '0';
 			sml_eight <= '0';
 			NEXT_STATE <= STATE;
@@ -131,9 +133,35 @@ comb: process(STATE, latchcount, bitcount, panel_select )
 			when getData =>
 				even_odd <= bitcount(0);
 				
-				-- Generate Latch signal
-				if( bitcount = 862 or bitcount = 863 ) then
-					modu <= '1';
+--			 				8	 8	  8   0
+--							6	 6	  6   0
+--							1	 2   3	0
+--	CLk in		 _|-|_|-|_|-|_|-|_|-|_|
+
+--	BankA	Sclk	 _|---|___|---|___|---|
+--			Latch	 _____|-------|__
+
+--	BankB	Sclk    -|___|---|___|---|___|
+--			Latch	 _________|-------|____
+
+
+--			Latch1	 1 1 1 
+--			Latch2        2 2 2
+--			Flank #   860 862	0
+--							861 863	
+
+				-- Generate Latch Signals A/B
+				if( bitcount = 861 ) then
+					latch1 <= '1';
+				end if;
+				
+				if( bitcount = 862 ) then
+					latch1 <= '1';
+					latch2 <= '1';
+				end if;
+				
+				if( bitcount = 863 ) then 
+					latch2 <= '1';
 				end if;
 				
 				-- Increment Latchcount when row done
